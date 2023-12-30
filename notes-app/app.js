@@ -1,3 +1,4 @@
 const val = require('validator')
+const chalk = require('chalk')
 
-console.log(val.isEmail('r@gmail.com'))
+console.log(chalk.green.inverse.bold("Success!"))
