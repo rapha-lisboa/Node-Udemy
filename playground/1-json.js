@@ -1,15 +1,9 @@
 const fs = require('fs')
 
-const book = {
-    title: "Harry Potter",
-    author: "J. K. Rowling"
-}
+let data = JSON.parse(fs.readFileSync("1-json.json").toString())
 
-const json = JSON.stringify(book)
-fs.writeFileSync("1-json.json", json)
+data.name = "Raphael"
+data.age = 19
 
-const dataBuffer = fs.readFileSync("1-json.json")
-const dataJSON = dataBuffer.toString
-const dataObject = JSON.parse(dataJSON)
-
-console.log(dataObject.author)
+const dataJSON = JSON.stringify(data)
+fs.writeFileSync("1-json.json", dataJSON)
