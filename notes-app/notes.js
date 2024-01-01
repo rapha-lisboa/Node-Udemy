@@ -22,20 +22,36 @@ const addNotes = function (title, body) {
     } else {
         console.log(chalk.red.bold("Error! Note title already exists"))
     }
+}
 
+const removeNotes = function (title) {
+    const notes = loadNotes()
+    console.log("notes = ", notes)
+    
+    const newNotes = notes.filter(function (note) {
+        return note.title != title
+    })
+    
+    console.log("newNotes = ", newNotes)
+
+    if(JSON.stringify(newNotes) !== JSON.stringify(notes)){
+        saveNotes(newNotes)
+        console.log(chalk.green.bold("Note removed, successfully!"))
+    } else {
+        console.log(chalk.red.bold("Error! Note title not founded"))
+    }
 }
 
 const saveNotes = function (notes) {
     const dataJSON = JSON.stringify(notes)
+    console.log("Jeison = ", dataJSON)
     fs.writeFileSync("notes.json", dataJSON)
 }
 
 const loadNotes = function () {
     try {
         const dataBuffer = fs.readFileSync('notes.json')
-        console.log("databuffer = " + dataBuffer)
         const dataJSON = dataBuffer.toString()
-        console.log("dataJSON = " + dataJSON)
         const data = JSON.parse(dataJSON)
         
         return data
@@ -46,5 +62,6 @@ const loadNotes = function () {
 
 module.exports = {
     getNotes: getNotes,
-    addNotes: addNotes
+    addNotes: addNotes,
+    removeNotes: removeNotes
 }
