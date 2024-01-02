@@ -22,7 +22,6 @@ const addNotes = (title, body) => {
 
 const removeNotes = (title) => {
     const notes = loadNotes()
-    console.log("notes = ", notes)
     
     const newNotes = notes.filter((note) => note.title != title)
 
@@ -34,9 +33,21 @@ const removeNotes = (title) => {
     }
 }
 
+const listNotes = () => {
+    const notes = loadNotes()
+    let noteCount = 1
+
+    console.log(chalk.bold("Your Notes"))
+
+    notes.forEach((note) => {
+        console.log(noteCount + ": " + note.title)
+        noteCount++
+    });
+}
+
 const saveNotes = (notes) => {
     const dataJSON = JSON.stringify(notes)
-    fs.writeFileSync("notes.json", dataJSON)
+    fs.writeFileSync('notes.json', dataJSON)
 }
 
 const loadNotes = () => {
@@ -58,5 +69,6 @@ const loadNotes = () => {
 module.exports = {
     getNotes: getNotes,
     addNotes: addNotes,
-    removeNotes: removeNotes
+    removeNotes: removeNotes,
+    listNotes: listNotes
 }
